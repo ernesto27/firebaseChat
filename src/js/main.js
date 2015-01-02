@@ -16,7 +16,8 @@ var app = angular.module('MobileAngularUiExamples', [
 
   // If you're migrating from Mobile Angular UI 1.1 and you are using 
   // 'mobile-angular-ui.migrate.js' you have to require it too
-  'mobile-angular-ui.migrate'
+  'mobile-angular-ui.migrate',
+  'firebase'
 ]);
 
 app.constant("PATHTEMPLATES", "src/js/partials/");

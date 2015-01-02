@@ -6,4 +6,8 @@ app.controller("HomeCtrl", function($scope, $location, firebaseClient){
 			$location.path('/login');
 		}
 	});
+
+
+	$scope.users = firebaseClient.getUsers();
+
 });
