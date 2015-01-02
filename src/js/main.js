@@ -27,10 +27,19 @@ app.constant("PATHTEMPLATES", "src/js/partials/");
 // in order to avoid unwanted routing.
 // 
 app.config(function($routeProvider, PATHTEMPLATES) {
-  $routeProvider.when('/', {templateUrl: 'home.html', reloadOnSearch: false});
+  $routeProvider.when('/', {
+    controller: "HomeCtrl",
+    templateUrl: PATHTEMPLATES + 'home.html', 
+    reloadOnSearch: false
+  });
   $routeProvider.when('/login', {
     controller: "LoginCtrl",
     templateUrl: PATHTEMPLATES + 'login.html', 
+    reloadOnSearch: false
+  });
+  $routeProvider.when('/register', {
+    controller: "RegisterCtrl",
+    templateUrl: PATHTEMPLATES + 'register.html', 
     reloadOnSearch: false
   });
 
@@ -48,11 +57,8 @@ app.config(function($routeProvider, PATHTEMPLATES) {
 
 
 
-app.controller("LoginCtrl", function($scope){
-  $scope.doLogin = function(){
-    console.log("Go to login")
-  }
-});
+
+  
 
 
 

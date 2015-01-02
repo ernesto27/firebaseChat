@@ -1,14 +1,19 @@
 <div ui-content-for="title">
-  <span>Login</span>
+  <span>Register new user</span>
 </div>
 
 <div class="scrollable">
  <div class="scrollable-content section">
    
-  <div class="alert alert-danger pull-center" ng-show="errorMessage">
-    <b>Email o contraseña incorrecta</b>
+  <div class="alert alert-danger" ng-show="errorMessage">
+    <b>{{textMessage}}</b>
   </div>
-  <form role="form" ng-submit='doLogin()'>
+
+  <div class="alert alert-success" ng-show="successMessage">
+    <b>{{textMessage}}</b>
+  </div>
+
+  <form role="form" ng-submit='doRegister()'>
     <fieldset>
         <div class="form-group has-success has-feedback">
           <label>Email</label>
@@ -31,16 +36,14 @@
     </fieldset>
     <hr>
 
-    <button class="btn btn-primary btn-block" ng-disabled="buttonSendDisabled">
-      Login
+    <button class="btn btn-primary btn-block"  ng-disabled="buttonSendDisabled" >
+      Register
     </button>
-
-    <a href="" ng-click="doLogout()">Logout</a>
     <br>
     <img src="/images/loading.gif" ng-show="loading"/>
 
     <div ui-content-for="navbarAction">
-      <a class='btn' ng-click='doLogin()'>Login</a>
+      <a class='btn' ng-click='doRegister()'>Login</a>
     </div>
 
   </form>
