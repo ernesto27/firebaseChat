@@ -17,7 +17,8 @@ var app = angular.module('MobileAngularUiExamples', [
   // If you're migrating from Mobile Angular UI 1.1 and you are using 
   // 'mobile-angular-ui.migrate.js' you have to require it too
   'mobile-angular-ui.migrate',
-  'firebase'
+  'firebase',
+  'angularMoment'
 ]);
 
 app.constant("PATHTEMPLATES", "src/js/partials/");
@@ -46,6 +47,11 @@ app.config(function($routeProvider, PATHTEMPLATES) {
   $routeProvider.when('/chat/:chatRoom', {
     controller: "ChatCtrl",
     templateUrl: PATHTEMPLATES + 'chat.html', 
+    reloadOnSearch: false
+  });
+  $routeProvider.when('/logout', {
+    controller: "LogoutCtrl",
+    template: ' ', 
     reloadOnSearch: false
   });
 

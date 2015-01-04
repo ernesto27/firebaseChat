@@ -26,8 +26,6 @@ app.controller("LoginCtrl", function($scope, $location, firebaseClient){
 	$scope.doLogout = function(){
 		firebaseClient.logout();
 	}
-
-
 });
 
 
@@ -40,7 +38,7 @@ app.controller("RegisterCtrl", function($scope, firebaseClient){
 		$scope.buttonSendDisabled = true;
 		$scope.loading = true;
 
-		firebaseClient.register($scope.email, $scope.password, function(status){
+		firebaseClient.register($scope.username, $scope.email, $scope.password, function(status){
 			console.log(status);
 			if(status == "register_ok"){
 				$scope.successMessage = true;
@@ -70,4 +68,10 @@ app.controller("RegisterCtrl", function($scope, firebaseClient){
 			$scope.$apply();
 		});
 	}
+});
+
+
+app.controller('LogoutCtrl', function($location, firebaseClient){
+	firebaseClient.logout();
+	$location.path("/");
 });

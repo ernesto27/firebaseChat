@@ -1,5 +1,5 @@
 <div ui-content-for="title">
-  <span>Home</span>
+  <span>Hello {{userLogged.password.email}}</span>
 </div>
 
 <div class="scrollable" ui-state="searchBar">
@@ -14,7 +14,7 @@
 
     <div class="list-group">
  	 <!-- <a ng-repeat="user in users | filter:user.q " href="#" class="list-group-item"> -->
- 	    <a ng-repeat="user in users | filter:q" href="#/chat/{{user.uid}}-{{userLogged.uid}}" class="list-group-item" >
+ 	    <a ng-repeat="user in users | filter:q" href="#/chat/{{user.uid}}-{{userLogged.uid}}" class="list-group-item" ng-hide="{{userLogged.uid == user.uid }}" >
         {{ user.password.email }} <i class="fa fa-chevron-right pull-right"></i>
       </a>
     </div>

@@ -9,7 +9,7 @@ app.factory("firebaseClient", function($firebase){
   	}
   
   	return {
-	  	register: function(email, password, callback){
+	  	register: function(username, email, password, callback){
 	  		ref.createUser({email: email, password: password}, function(error){
 		  		if(error){
 		  			switch (error.code) {
@@ -26,6 +26,7 @@ app.factory("firebaseClient", function($firebase){
 		  				if(!error){
 		  					ref.onAuth(function(authData) {
 								if (authData) {
+									authData.username = username;
 								    // save the user's profile into Firebase so we can list users,
 								    // use them in Security and Firebase Rules, and show profiles
 								    ref.child("users").child(authData.uid).set(authData);
@@ -46,9 +47,11 @@ app.factory("firebaseClient", function($firebase){
 
 	    isLogin: function(callback){
 	    	ref.onAuth(callback);
+
 	    },
 
 	    logout: function(){
+	    	console.log("user logout")
 	    	ref.unauth();
 	    },
 
@@ -68,15 +71,20 @@ app.factory("firebaseClient", function($firebase){
 	    	return chats.$asArray();
 	    },
 
-	    addMessageToChat: function(chatRoom, message, callback){
+	    addMessageToChat: function(chatRoom, message, fromName, callback){
 	    	var date = new Date();
 	    	var dateString = date.toString();
 	    	var chat = $firebase(ref.child("chats/" + chatRoom ));
 	    	chat.$push({
 	    		message: message,
-	    		from: "Ernesto",
+	    		from: fromName,
 	    		date: dateString
 	    	}).then(callback);
-	    }
+	    },
+
+	    getUsernameLogged: function(userId, callback){
+	    	var user = ref.child("/users/" + userId + "/username");
+	    	user.once("value", callback);
+	    } 
 	  }
 });
