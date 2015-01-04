@@ -1,4 +1,5 @@
-app.controller("LoginCtrl", function($scope, firebaseClient){
+app.controller("LoginCtrl", function($scope, $location, firebaseClient){
+	console.log($scope.userLogged);
 	$scope.buttonSendDisabled = false;
 	$scope.loading = false;
 
@@ -6,7 +7,8 @@ app.controller("LoginCtrl", function($scope, firebaseClient){
   		if (error) {
   			$scope.errorMessage = true;
   		} else {
-   			console.log("Authenticated successfully with payload:", authData);
+   			$scope.userLogged = authData;
+  			$location.path("/")
   		}
 
   		$scope.loading = false;

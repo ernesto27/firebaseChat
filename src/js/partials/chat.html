@@ -1,0 +1,58 @@
+<div class="container chat-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+               
+                </div>
+                <div class="panel-body" id="wrapper-messages">
+                    <ul class="chat">
+
+                        <li class="left clearfix" ng-repeat="chat in chats">
+                            <span class="chat-img pull-left">
+                                <img src="/images/user.png" alt="User Avatar" class="img-circle">
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">{{ chat.from }}</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>{{ chat.date }}</small>
+                                </div>
+                                <p>
+                                    {{ chat.message }}
+                                </p>
+                            </div>
+                        </li>
+
+                        <!--
+                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
+                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                       
+                        -->
+                    </ul>
+                </div>
+                <div class="panel-footer chat-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="message">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendChat()">
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

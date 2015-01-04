@@ -43,6 +43,11 @@ app.config(function($routeProvider, PATHTEMPLATES) {
     templateUrl: PATHTEMPLATES + 'register.html', 
     reloadOnSearch: false
   });
+  $routeProvider.when('/chat/:chatRoom', {
+    controller: "ChatCtrl",
+    templateUrl: PATHTEMPLATES + 'chat.html', 
+    reloadOnSearch: false
+  });
 
   $routeProvider.when('/scroll',        {templateUrl: 'scroll.html', reloadOnSearch: false}); 
   $routeProvider.when('/toggle',        {templateUrl: 'toggle.html', reloadOnSearch: false}); 
@@ -68,6 +73,7 @@ app.config(function($routeProvider, PATHTEMPLATES) {
 // for everything
 //
 app.controller('MainController', function($rootScope, $scope){
+
 
   // User agent displayed in home page
   $scope.userAgent = navigator.userAgent;

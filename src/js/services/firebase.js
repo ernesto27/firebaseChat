@@ -1,9 +1,6 @@
 app.factory("firebaseClient", function($firebase){
 	var ref = new Firebase("https://angularfirex.firebaseio.com/");
 
-	
-	 
-
   	function login(email, password, cb){
     	ref.authWithPassword({
         	email    : email,
@@ -59,7 +56,27 @@ app.factory("firebaseClient", function($firebase){
 	    // Home services
 	    getUsers: function(callback){
 	    	var users  = $firebase(ref.child("users"));
+	    	ref.on("value", callback);
 	    	return users.$asArray();
+	    },
+
+
+	    // Chats
+	    getRoomChats: function(chatRoom, callback){
+	    	var chats  = $firebase(ref.child("chats/" + chatRoom));
+	    	ref.on("value", callback);
+	    	return chats.$asArray();
+	    },
+
+	    addMessageToChat: function(chatRoom, message, callback){
+	    	var date = new Date();
+	    	var dateString = date.toString();
+	    	var chat = $firebase(ref.child("chats/" + chatRoom ));
+	    	chat.$push({
+	    		message: message,
+	    		from: "Ernesto",
+	    		date: dateString
+	    	}).then(callback);
 	    }
 	  }
 });
