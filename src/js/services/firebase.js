@@ -82,6 +82,33 @@ app.factory("firebaseClient", function($firebase){
 	    	}).then(callback);
 	    },
 
+	    // Notifications
+	    getNotifications: function(userId, callback){
+	    	var child = ref.child("notifications/" + userId);
+	    	var notification = $firebase(child);
+	    	child.on("value", callback);
+	    	return notification.$asArray();
+	    },
+
+	    sendNotification: function(userIdTo, userIdFrom, usernameFrom, message){
+	    	//console.log(userIdFrom); return;
+	    	var chatRoom = null;
+	    	if(userIdTo > userIdFrom){
+	    		chatRoom = userIdFrom + "-" + userIdTo;
+	    	}else{
+	    		chatRoom = userIdTo + "-" + userIdFrom;
+	    	}
+
+			var notification = $firebase(ref.child("notifications/" + userIdTo + "/" + userIdFrom));
+			notification.$set({
+				message:  message,
+				from: usernameFrom,
+				unread: 0,
+				chatRoom: chatRoom
+			});
+	    },
+
+
 	    getUsernameLogged: function(userId, callback){
 	    	var user = ref.child("/users/" + userId + "/username");
 	    	user.once("value", callback);

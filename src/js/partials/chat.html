@@ -1,3 +1,7 @@
+<div ui-content-for="title">
+  <span>Chat</span>
+</div>
+
 <div class="container chat-wrapper">
     <div class="row">
         <div class="col-md-12">
@@ -50,7 +54,7 @@
                 <div class="panel-footer chat-footer">
                     <form ng-submit="sendChat()">
                         <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="message">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="message" autofocus>
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btn-chat">
                                         Send</button>

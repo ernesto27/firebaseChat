@@ -8,7 +8,6 @@ app.controller("ChatCtrl" , function($scope, $location, firebaseClient, $routePa
 	var user2 = arrayChat[1];
 
 	if(parseInt(user1.split(":")[1]) > parseInt(user2.split(":")[1])){
-		console.log("redirect")
 		$location.path("/chat/" + user2 + "-" + user1);
 	}
 
@@ -16,8 +15,6 @@ app.controller("ChatCtrl" , function($scope, $location, firebaseClient, $routePa
 	firebaseClient.isLogin(function(auth){
 		if(auth){
 			$scope.userLogged = auth;
-			//console.log($scope.userLogged);
-
 			// Get username user
 			firebaseClient.getUsernameLogged($scope.userLogged.uid, function(snapshot){
 				$scope.usernameLogged = snapshot.val();
@@ -32,12 +29,22 @@ app.controller("ChatCtrl" , function($scope, $location, firebaseClient, $routePa
 					$scope.$apply();
 				}, 100);
 			});
-			console.log($scope.chats)
+		
 
 			$scope.sendChat = function(){
-				
+				var userIdToSendNotification = null;
+				if(user1 != $scope.userLogged.uid){
+					userIdToSendNotification = user1;
+				}else{
+					userIdToSendNotification = user2;
+				}
+
+
 				firebaseClient.addMessageToChat($routeParams.chatRoom, $scope.message, $scope.usernameLogged,  function(){
 					wrapperChat.scrollTop = wrapperChat.scrollHeight;
+
+					firebaseClient.sendNotification(userIdToSendNotification,$scope.userLogged.uid, 
+												$scope.usernameLogged, $scope.message); return
 				});
 				
 			};

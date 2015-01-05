@@ -67,8 +67,8 @@
           </div>
         </div>
         <div class="btn-group pull-right" ui-yield-to="navbarAction">
-          <div ui-toggle="uiSidebarRight" class="btn">
-            <i class="fa fa-comment"></i> open chat
+          <div ui-toggle="uiSidebarRight" class="btn" ng-click="openNotifications()">
+            <i class="fa fa-comment"></i> <span class="badge notification">{{notificationsCount}}</span>
           </div>
         </div>
       </div>

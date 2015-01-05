@@ -78,7 +78,7 @@ app.config(function($routeProvider, PATHTEMPLATES) {
 // For this trivial demo we have just a unique MainController 
 // for everything
 //
-app.controller('MainController', function($rootScope, $scope){
+app.controller('MainController', function($rootScope, $scope, firebaseClient){
 
 
   // User agent displayed in home page
@@ -96,25 +96,32 @@ app.controller('MainController', function($rootScope, $scope){
   // Fake text i used here and there.
   $scope.lorem = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo, aliquid eaque soluta nihil eligendi adipisci error, illum corrupti nam fuga omnis quod quaerat mollitia expedita impedit dolores ipsam. Obcaecati.';
 
-  // 
-  // 'Scroll' screen
-  // 
-  var scrollItems = [];
 
-  for (var i=1; i<=100; i++) {
-    scrollItems.push('Item ' + i);
+
+   
+  // Chat notifications
+
+  firebaseClient.isLogin(function(auth){
+    if(auth){
+      console.log("from main controller " , auth);
+      $scope.notifications = firebaseClient.getNotifications(auth.uid,function(snapshot){
+        $scope.notificationsCount = Object.keys(snapshot.val()).length;
+      });
+      
+    }
+  });
+
+  
+
+  $scope.openNotifications = function(){
+    console.log("Notffications open")
   }
 
-  $scope.scrollItems = scrollItems;
 
-  $scope.bottomReached = function() {
-    alert('Congrats you scrolled to the end of the list!');
-  }
 
-  // 
-  // Right Sidebar
-  // 
+
   $scope.chatUsers = [
+    { name: 'Ernesto ponce', online: true },
     { name: 'Carlos  Flowers', online: true },
     { name: 'Byron Taylor', online: true },
     { name: 'Jana  Terry', online: true },
@@ -142,30 +149,6 @@ app.controller('MainController', function($rootScope, $scope){
     { name: 'Ebony Rice', online: false }
   ];
 
-  //
-  // 'Forms' screen
-  //  
-  $scope.rememberMe = true;
-  $scope.email = 'me@example.com';
-  
-  $scope.login = function() {
-    alert('You submitted the login form');
-  };
 
-  // 
-  // 'Drag' screen
-  // 
-  $scope.notices = [];
-  
-  for (var j = 0; j < $scope.chatUsers.length; j++) {
-    var user = $scope.chatUsers[j];
-    $scope.notices.push({icon: 'envelope', message: 'Notice ' + j });
-  }
 
-  $scope.deleteNotice = function(notice) {
-    var index = $scope.notices.indexOf(notice);
-    if (index > -1) {
-      $scope.notices.splice(index, 1);
-    }
-  };
 });
